@@ -24,7 +24,6 @@ deploy:
     - server
   script:
     - cp -f api /opt/api/build
-    - chmod 755 /opt/api/build/api
     - cd /opt/api
     - docker-compose down
     - docker-compose build
