@@ -1,0 +1,44 @@
+image: docker-hub-remote.bahnhub.tech.rz.db.de/golang:1.19.3-bullseye
+
+stages:
+  - build
+  - deploy
+
+
+compile:
+  stage: build
+  tags:
+    - Miraiserver_Docker
+  script:
+    - export GOPRIVATE="*.db.de"
+    - cd src/configpanda
+    - go build -o configpanda .
+    - cp configpanda ../..
+  artifacts:
+    paths:
+    - configpanda
+    expire_in: 1 week
+
+
+deploy dev on miraiserver:
+  stage: deploy
+  tags:
+    - Miraiserver
+  script:
+    - sudo cp -f configpanda /app/mirai/dev/bin/
+    - sudo chmod 755 /app/mirai/dev/bin/configpanda
+    - sudo chown 1010:1010 /app/mirai/dev/bin/configpanda
+  only:
+    - main
+
+
+deploy prod on miraiserver:
+  stage: deploy
+  tags:
+    - Miraiserver
+  script:
+    - sudo cp -f configpanda /app/mirai/bin/
+    - sudo chmod 755 /app/mirai/bin/configpanda
+    - sudo chown 1010:1010 /app/mirai/bin/configpanda
+  only:
+    - production
