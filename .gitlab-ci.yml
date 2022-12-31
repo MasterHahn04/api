@@ -1,4 +1,4 @@
-image: docker-hub-remote.bahnhub.tech.rz.db.de/golang:1.19.3-bullseye
+image: golang:1.19.3-bullseye
 
 stages:
   - build
