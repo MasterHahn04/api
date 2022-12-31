@@ -1,0 +1,29 @@
+image: golang:1.19.3-bullseye
+
+stages:
+  - build
+  - deploy
+
+
+compile:
+  stage: build
+  tags:
+    - docker
+  script:
+    - cd /builds/arc/api
+    - go build -o api .
+    - cp api ../..
+  artifacts:
+    paths:
+    - api
+    expire_in: 1 week
+
+deploy:
+  stage: deploy
+  tags:
+    - server
+  script:
+    - cp -f api /opt/api
+    - chmod 755 opt/api/api
+  only:
+    - production
