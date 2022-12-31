@@ -10,7 +10,7 @@ compile:
   tags:
     - docker
   script:
-    - cd src/api
+    - cd /builds/arc/api
     - go build -o api .
     - cp api ../..
   artifacts:
