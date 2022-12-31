@@ -23,7 +23,11 @@ deploy:
   tags:
     - server
   script:
-    - cp -f api /opt/api
-    - chmod 755 /opt/api/api
+    - cp -f api /opt/api/build
+    - chmod 755 /opt/api/build/api
+    - cd /opt/api
+    - docker-compose build
+    - docker-compose up -d
+    - docker-compose logs
   only:
     - production
