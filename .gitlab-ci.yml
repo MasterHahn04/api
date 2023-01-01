@@ -38,6 +38,7 @@ deploy:
   script:
     - cp -f api /opt/api/build
     - cd /opt/api
+    - export GIN_MODE=release
     - docker-compose down
     - docker-compose build
     - docker-compose up -d
