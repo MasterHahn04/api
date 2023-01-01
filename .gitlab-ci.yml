@@ -23,6 +23,7 @@ compile:
     - production
   script:
     - cd /builds/arc/api
+    - export GIN_MODE=release
     - go build -o api .
     - cp api ../..
   artifacts:
